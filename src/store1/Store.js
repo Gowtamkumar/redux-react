@@ -4,6 +4,7 @@ import cartReducer from './features/cart/Cart'
 const store = configureStore({
     reducer: {
         cart: cartReducer,
+
     }
 })
 
