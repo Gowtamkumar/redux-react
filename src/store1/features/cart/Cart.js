@@ -5,6 +5,7 @@ import cartItemss from '../../CartItems'
 const initialState = {
 	cartItems: cartItemss,
 	amount: 0,
+	totalqty: 0,
 	total: 0,
 	isLoading: true,
 }
@@ -14,20 +15,36 @@ const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		removeItems: (state, action) => {
-
 			state.cartItems = state.cartItems.filter((item) => item.id !== action.payload)
 		},
-		increment: (state, { payload }) => {
-			console.log("action", cartItemss);
-			const findProduct = state.cartItems.find((item) => {
-				console.log("item.id", item.id);
-			})
-			console.log("state", state);
-			// state.amount = findProduct.amount + 1;
+		increments: (state, action) => {
+			const cartItem = state.cartItems.find((item) => item.id === action.payload)
+			state.amount = cartItem.price + state.amount;
+			cartItem.qty = cartItem.qty + 1;
+			state.totalqty = state.totalqty +1
+			
+		},
+
+		decrements: (state, action) => {
+			const cartItem = state.cartItems.find((item) => item.id === action.payload)
+			cartItem.qty = cartItem.qty - 1;
+		},
+
+		calculationTotal: (state) => {
+			let amount = 0;
+			let total = 0;
+			state.cartItems.forEach((item) => {
+				amount += item.price;
+				total += item.qty * item.price
+			});
+			state.amount = amount;
+			state.total = total;
+
+			console.log("total", total);
 		}
 
 	}
 })
 export default cartSlice.reducer;
-export const { removeItems, increment } = cartSlice.actions;
+export const { removeItems, increments, decrements, calculationTotal } = cartSlice.actions;
 // console.log("cartSlice", cartSlice);
