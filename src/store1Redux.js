@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { calculationTotal } from './store1/features/cart/Cart';
 
 
-export default function Store1Redux() {
+export default function Store1() {
   const { cartItems, amount, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 

@@ -3,13 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeItems, increments, decrements } from '../../store1/features/cart/Cart';
 
 export default function CartItem() {
-  const { amount, cartItems } = useSelector((state) => state.cart);
+  const { amount, cartItems, data } = useSelector((state) => state.cart);
   const dispatch = useDispatch()
-  console.log("cartitem", cartItems);
 
-  const handleCart = (value) => {
-    console.log("dd", value)
-  }
+
   const Increment = (id) => {
     dispatch(increments(id))
   }
@@ -35,14 +32,15 @@ export default function CartItem() {
                   <p className="card-text">{singleCartItems.description}</p>
                   <button className='btn btn-primary mr-4 btn-sm' onClick={() => Increment(singleCartItems.id)}>Add To Cart</button> &nbsp;
                   <button className='btn btn-primary btn-sm ml-4' onClick={() => removeCart(singleCartItems.id)}>Remove Item</button> <br />
-                  <button onClick={() => Increment(singleCartItems.id)}>+</button>{singleCartItems.amount}<button
+                  <button onClick={() => Increment(singleCartItems.id)}>+</button>{singleCartItems.amount}
+                  {/* <button
                     onClick={() => {
                       if (amount === 1) {
                         removeCart(singleCartItems.id)
                       }
                       decrement(singleCartItems.id)
                     }
-                    }>-</button>
+                    }>-</button> */}
                 </div>
               </div>
             </div>
